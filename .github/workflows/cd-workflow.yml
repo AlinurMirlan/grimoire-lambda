@@ -31,5 +31,6 @@ jobs:
           REPOSITORY: grimoire-lambda
           IMAGE_TAG: ${{ github.sha }}
         run: |
+          echo $REGISTRY/$REPOSITORY:$IMAGE_TAG
           docker build -t $REGISTRY/$REPOSITORY:$IMAGE_TAG Grimoire.Lambda/src/Grimoire.Lambda
           docker push $REGISTRY/$REPOSITORY:$IMAGE_TAG
