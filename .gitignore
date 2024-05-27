@@ -1,0 +1,7 @@
+﻿################################################################################
+# This .gitignore file was automatically created by Microsoft(R) Visual Studio.
+################################################################################
+
+/.vs
+/Grimoire.Lambda/src/Grimoire.Lambda/obj
+/Grimoire.Lambda/test/Grimoire.Lambda.Tests/obj
