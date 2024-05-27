@@ -5,3 +5,5 @@
 /.vs
 /Grimoire.Lambda/src/Grimoire.Lambda/obj
 /Grimoire.Lambda/test/Grimoire.Lambda.Tests/obj
+/Grimoire.Lambda/src/Grimoire.Lambda/bin/Debug/net8.0
+/Grimoire.Lambda/src/Grimoire.Lambda/bin/Release/net8.0
