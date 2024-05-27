@@ -1,13 +1,20 @@
-FROM public.ecr.aws/lambda/dotnet:8
+# Stage 1: Build the application
+FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
+WORKDIR /src
 
-WORKDIR /var/task
+# Copy csproj and restore as distinct layers
+COPY ["./Grimoire.Lambda.csproj", "./"]
+RUN dotnet restore
 
-# This COPY command copies the .NET Lambda project's build artifacts from the host machine into the image. 
-# The source of the COPY should match where the .NET Lambda project publishes its build artifacts. If the Lambda function is being built 
-# with the AWS .NET Lambda Tooling, the `--docker-host-build-output-dir` switch controls where the .NET Lambda project
-# will be built. The .NET Lambda project templates default to having `--docker-host-build-output-dir`
-# set in the aws-lambda-tools-defaults.json file to "bin/Release/lambda-publish".
-#
-# Alternatively Docker multi-stage build could be used to build the .NET Lambda project inside the image.
-# For more information on this approach checkout the project's README.md file.
-COPY "bin/Release/lambda-publish"  .
+# Copy the remaining source code and build the application
+COPY . .
+RUN dotnet publish -c Release -o /app
+
+# Stage 2: Create the runtime image
+FROM public.ecr.aws/lambda/dotnet:8 AS runtime
+
+# Copy the compiled application from the build stage
+COPY --from=build /app /var/task
+
+# Specify the Lambda function handler
+CMD ["Grimoire.Lambda::Grimoire.Lambda.Function::FunctionHandler"]
