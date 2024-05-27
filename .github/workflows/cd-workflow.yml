@@ -29,7 +29,7 @@ jobs:
         env:
           REGISTRY: ${{ steps.login-ecr-public.outputs.registry }}
           REPOSITORY: f8m6z4q4/grimoire-lambda
-          IMAGE_TAG: ${{ github.sha }}
+          IMAGE_TAG: latest
         run: |
           echo $REGISTRY/$REPOSITORY:$IMAGE_TAG
           docker build -t $REGISTRY/$REPOSITORY:$IMAGE_TAG Grimoire.Lambda/src/Grimoire.Lambda
