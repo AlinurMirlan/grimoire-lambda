@@ -37,4 +37,4 @@ jobs:
 
       - name: Deploy to Lambda
         run: |
-          aws lambda update-function-code --function-name ${{ env.FUNCTION_NAME }} --image-uri $REGISTRY/$REGISTRY_ALIAS/$REPOSITORY:$IMAGE_TAG
+          aws lambda update-function-code --function-name ${{ env.FUNCTION_NAME }} --image-uri $REGISTRY/$REPOSITORY:$IMAGE_TAG
